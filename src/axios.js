@@ -4,6 +4,7 @@ import Axios from "axios";
 
 Axios.defaults.baseURL = "https://api.github.com";
 
+//https://stackoverflow.com/questions/55020041/react-hooks-useeffect-cleanup-for-only-componentwillunmount
 // Axios.interceptors.request.use(function(config) {
 //   // Do something before request is sent
 //   console.log("Request interceptor: ", config);
@@ -79,20 +80,13 @@ const HookFunc = props => {
         console.log("unmount completed", props);
       };
     },
-    [props.hook]
+    [props.hook1]
   ); //props.hook
-
-  useEffect(() => {
-    return () => {
-      console.log("cleaned up");
-    };
-  }, []);
 
   return (
     <>
-      <div onClick={props.hookClick}>hookClick</div>
-      <div onClick={props.dummyClick}>dummyClick</div>
-      <div onClick={props.unmountClick}>unmountClick</div>
+      <div onClick={props.hookClick}>hook Click {props.children}</div>
+      <div onClick={props.unmountClick}>unmount Click</div>
     </>
   );
 };
@@ -107,22 +101,51 @@ const DummyFunc = props => {
 
   return (
     <>
-      <div onClick={props.dummyClick}>dummyClick</div>
+      <div onClick={props.dummyClick}>dummy Click</div>
     </>
   );
 };
 
-// const FunComponent = () => {
-//   return (
-//     <>
-//       <HookFunc />
+const HookFuncComponent = () => {
+  const [hook, setHookState] = useState(true);
+  const [hook1, setHookState1] = useState(1);
+  const [dummy, setDummyState] = useState(true);
+  const [unmount, setunmountState] = useState(true);
 
-//       <div id="abc">
-//         <GetData />
-//       </div>
-//     </>
-//   );
-// };
+  const changeHookState = () => {
+    setHookState1(hook1 + 1);
+  };
+  const changeDummyState = () => {
+    setDummyState(!dummy);
+  };
+  const unmountState = () => {
+    setunmountState(!unmount);
+  };
+  return (
+    <>
+      {dummy ? (
+        <DummyFunc dummyClick={changeDummyState} />
+      ) : (
+        <div>Unmounted ALL</div>
+      )}
+      {hook ? (
+        <HookFunc
+          hook1={hook1}
+          hookClick={changeHookState}
+          unmountClick={unmountState}
+        >
+          {" "}
+          {hook1}{" "}
+        </HookFunc>
+      ) : (
+        ""
+      )}
+      <div id="abc">
+        <GetData />
+      </div>
+    </>
+  );
+};
 
 class AxiosDemo extends Component {
   state = {
@@ -152,15 +175,15 @@ class AxiosDemo extends Component {
     return (
       <>
         {this.state.dummy ? (
-          <DummyFunc dummyClick={this.changeDummyState}/>
-          <HookFunc
-            props={this.state.hook}
-            hookClick={this.changeHookState}
-            unmountClick={this.unmountState}
-          />
+          <DummyFunc dummyClick={this.changeDummyState} />
         ) : (
           <div>Unmounted ALL</div>
         )}
+        <HookFunc
+          props={this.state.hook}
+          hookClick={this.changeHookState}
+          unmountClick={this.unmountState}
+        />
         <div id="abc">
           <GetData props={this.state} />
         </div>
@@ -169,4 +192,4 @@ class AxiosDemo extends Component {
   }
 }
 
-ReactDOM.render(<AxiosDemo />, document.getElementById("root"));
+ReactDOM.render(<HookFuncComponent />, document.getElementById("root"));

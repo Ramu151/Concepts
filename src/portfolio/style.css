@@ -1,0 +1,23 @@
+.pfSection {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 200px;
+}
+.pfAttrElement {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.attrLabelClass {
+  display: flex;
+  flex-basis: 100%;
+}
+.attrValueClass {
+  display: flex;
+  flex-basis: 100%;
+}
+main {
+  display: flex;
+  flex-direction: row;
+}
