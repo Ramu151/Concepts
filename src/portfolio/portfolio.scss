@@ -1,0 +1,29 @@
+
+
+main {
+  display: flex;
+  flex-direction: row;
+  
+  .pfSection {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 400px;
+
+    .pfAttrElement {
+      background: rgb(223, 159, 159);
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+  
+      .attrLabelClass {
+        display: flex;
+        flex-basis: 100%;
+      }
+      .attrValueClass {
+        display: flex;
+        flex-basis: 100%;
+      }
+    }
+  } 
+}

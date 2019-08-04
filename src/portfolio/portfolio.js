@@ -1,7 +1,9 @@
 import React, { Component, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { model_portfolios as model } from "./data";
-import "./style.css";
+import faker from "faker";
+
+import "./portfolio.scss";
 //add sass and img faker module
 const { Provider, Consumer } = React.createContext();
 
@@ -24,13 +26,16 @@ const PortFolio = () => {
 };
 
 const CheckContext = props => {
-  console.log("ON", props);
+  console.log("ON", faker.image.avatar());
   return (
     <Consumer>
       {context => (
         console.log("context", context),
         (
-          <section className="pfSection">
+          <section
+            className="pfSection"
+            style={{ backgroundImage: `url(${faker.image.avatar()})` }}
+          >
             <img src="" alt="" />
             <title>{context.name}</title>
             <div className="pfAttrElement">
