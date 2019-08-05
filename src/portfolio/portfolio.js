@@ -1,60 +1,54 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { model_portfolios as model } from "./data";
-import faker from "faker";
+import { UserCards } from "./atoms/userCard";
 
 import "./portfolio.scss";
-//add sass and img faker module
-const { Provider, Consumer } = React.createContext();
+const PortFolioContext = React.createContext();
 
 const PortFolio = () => {
-  //const = useState()
   const GetPortfolioModel = (ele, arr) => {
-    console.log(ele, arr);
     return (
-      <Provider value={ele}>
-        <CheckContext name="suresh" />
-      </Provider>
+      <PortFolioContext.Provider value={ele}>
+        <UserCards name="suresh" />
+      </PortFolioContext.Provider>
     );
   };
   const template = model.map((ele, index, arr) => {
     return GetPortfolioModel(ele, arr);
   });
 
-  console.log(template);
   return <main>{template}</main>;
 };
 
-const CheckContext = props => {
-  console.log("ON", faker.image.avatar());
-  return (
-    <Consumer>
-      {context => (
-        console.log("context", context),
-        (
-          <section
-            className="pfSection"
-            style={{ backgroundImage: `url(${faker.image.avatar()})` }}
-          >
-            <img src="" alt="" />
-            <title>{context.name}</title>
-            <div className="pfAttrElement">
-              <div className="attrLabelClass">volatility</div>
-              <div className="attrValueClass">{context.volatility}</div>
-            </div>
-            <div className="pfAttrElement">
-              <div className="attrLabelClass">currency</div>
-              <div className="attrValueClass">{context.currency}</div>
-            </div>
-            <div className="pfAttrElement">
-              <div className="attrLabelClass">mean_return</div>
-              <div className="attrValueClass">{context.mean_return}</div>
-            </div>
-          </section>
-        )
-      )}
-    </Consumer>
-  );
-};
-
 ReactDOM.render(<PortFolio />, document.getElementById("root"));
+export { PortFolioContext };
+
+// const UserCards = props => {
+//   console.log('context ',props);
+//   let {volatility,currency,mean_return, name} = props;
+//   let childCards = []
+//   for(let user in props){
+//     console.log('userData',user,props[user]);
+//     childCards.push(<InnerCardAtom label={user} value={props[user]}/>)
+//   }
+//   console.log('childCards',childCards);
+//   return (
+//         <section
+//     className="pfSection"
+//     style={{ backgroundImage: `url(${faker.image.avatar()})` }}
+//     >
+//     {childCards}
+//     </section>
+//   );
+// };
+
+// const InnerCardAtom = props => {
+//   console.log('innercard',props)
+//   return(
+//     <div className="pfAttrElement">
+//       <div className="attrLabelClass">{props.label}</div>
+//       <div className="attrValueClass">{props.value}</div>
+//     </div>
+//   )
+// }

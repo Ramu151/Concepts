@@ -3,25 +3,34 @@
 main {
   display: flex;
   flex-direction: row;
-  
+  justify-content: space-around;
+  align-items: space-between;
+  flex: 0 0 100%;
+
   .pfSection {
     display: flex;
     flex-direction: column;
-    width: 400px;
-    height: 400px;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    align-items: center;
+    justify-content: center;
 
     .pfAttrElement {
       background: rgb(223, 159, 159);
       display: flex;
       flex-direction: row;
-      width: 100%;
+      width: 80%;
+      
   
       .attrLabelClass {
         display: flex;
+        padding: 0.5rem;
         flex-basis: 100%;
       }
       .attrValueClass {
         display: flex;
+        padding: 0.5rem;
         flex-basis: 100%;
       }
     }
