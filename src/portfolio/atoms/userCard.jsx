@@ -9,7 +9,7 @@ const UserCards = props => {
       {context => (
         <section
           className="pfSection"
-          style={{ backgroundImage: `url(${faker.image.city()})` }}
+          style={{ backgroundImage: `url(${faker.image.avatar()})` }}
         >
           {GetInnerCards(context)}
         </section>
