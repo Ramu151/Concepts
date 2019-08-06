@@ -2,11 +2,16 @@ import React from "react";
 import { ProductCard } from "../atoms/productCard";
 
 const CategoryGrid = props => {
+  const { data } = props;
+  console.log(props.data);
   return (
-    <section className="CategoryGridSection">
-      <title>{props.title}</title>
-      <ProductCard data={props.items} />
-    </section>
+    <>
+      <section className="CategoryGridSection">
+        {props.data}
+        <title>{props.title}</title>
+        <ProductCard data={props.items} />
+      </section>
+    </>
   );
 };
 

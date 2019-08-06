@@ -1,6 +1,6 @@
 import React from "react";
 import { ProductCard } from "../atoms/productCard";
-import { HomeContext } from "../pages/home";
+import { HomeContext } from "../pages/Home";
 
 const ProductItem = props => {
   return (

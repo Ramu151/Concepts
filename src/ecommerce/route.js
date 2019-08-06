@@ -1,7 +1,13 @@
 import React from "react";
 import { Link, Route, Switch } from "react-router";
 import { pathParams } from "./pathparams";
-import { Home } from "./pages/home";
+import loadable from "@loadable/component";
+
+const LoadableComponent = loadable(props => {
+  const { pageComponentName, routeProps } = props;
+  console.log("^^^^^^^  LoadedComponent  ^^^^^^^", pageComponentName, props);
+  return import(/*webpackChunkName: "[request]" */ `./pages/${pageComponentName}`);
+});
 
 const Routes = () => {
   return <SetRoutes />;
@@ -11,12 +17,17 @@ const SetRoutes = () => {
   return (
     <div>
       {pathParams.map(ele => {
-        console.log("loosu", ele.path, ele.component);
+        console.log("loosu", ele, ele.component);
         return (
           <Route
+            exact
             path={ele.path}
             render={props => {
-              return <ele.component />;
+              return (
+                <>
+                  <LoadableComponent pageComponentName={ele.component} />
+                </>
+              );
             }}
           />
         );
