@@ -1,8 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Home } from "./pages/home";
+import { Link, Route, Switch } from "react-router";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Routes } from "./route";
 
-ReactDOM.render(<Home />, document.getElementById("root"));
+const AppComponent = () => {
+  return (
+    <main>
+      <header>Header</header>
+      <Router>
+        <Routes />
+      </Router>
+      <footer>Footer</footer>
+    </main>
+  );
+};
 
-export { Home };
-export default Home;
+ReactDOM.render(<AppComponent />, document.getElementById("root"));
