@@ -1,8 +1,15 @@
-
+header{
+  display: flex;
+  flex-basis: 100%;
+}
+footer{
+  display: flex;
+  flex-basis: 100%;
+}
 
 main {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-around;
   align-items: space-between;
   flex: 0 0 100%;

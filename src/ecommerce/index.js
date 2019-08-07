@@ -1,18 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Link, Route, Switch } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Routes } from "./route";
+import { Header } from "./components/header";
 
 const AppComponent = () => {
   return (
-    <main>
-      <header>Header</header>
-      <Router>
+    <Router>
+      <main>
+        <Header />
         <Routes />
-      </Router>
-      <footer>Footer</footer>
-    </main>
+        <footer>Footer</footer>
+      </main>
+    </Router>
   );
 };
 

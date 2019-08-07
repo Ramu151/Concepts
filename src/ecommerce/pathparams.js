@@ -7,6 +7,10 @@ const pathParams = [
   {
     path: "/shop",
     component: "Shop"
+  },
+  {
+    path: "/signin",
+    component: "SignIn"
   }
 ];
 
