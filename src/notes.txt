@@ -1,0 +1,137 @@
+rtl-book - cli tool to give interactive cheatsheet
+
+where we can write test and add notes about query and matchers.
+
+npx rtl-book serve roles-notes.js
+
+create a new file called roles-notes.js and save notes in there
+
+
+
+//Query functions
+
+/**
+ * to find single element, throws error for zero or more
+ * getBy - prove an ele exist
+ * queryBy - does not throw error for zero, returns null, 
+ *           prove ele does not exist
+ * findBy - async takes 1 sec to execute, after all components rendered
+ *          make sure an ele eventually exist
+ * 
+ * Asserting elements are not present
+The standard getBy methods throw an error when they can't find an element, so if you want to make an assertion that an element is not present in the DOM, you can use queryBy APIs instead:
+
+ * to find mutliple or single elements, throws error for zero
+ * getAllBy , queryAllBy, findAllBy
+ * 
+ * queryBy
+
+queryBy* queries return the first matching node for a query, and return null if no elements match. This is useful for asserting an element that is not present. This throws if more than one match is found (use queryAllBy instead).
+
+queryAllBy queryAllBy* queries return an array of all matching nodes for a query, and return an empty array ([]) if no elements match.
+ */
+
+function QueryExample () {
+  return(
+    <ul>
+      <li>Green</li>
+      <li>Red</li>
+      <li>Blue</li>
+      <li>White</li>
+    </ul>
+  )
+}
+
+render(<QueryExample/>)
+
+
+test('to get zero elements', async () => {
+  render(<QueryExample />)
+  // no textbox exist so it throws error
+  expect(() => { screen.getByRole("textbox") }).toThrow()
+  expect(screen.queryByRole("textbox")).toEqual(null)
+
+  // find try to find ele, if not return rejected promise
+  let errorThrown = false
+  try {
+    expect(await screen.findByRole("textbox"))
+  }
+  catch { errorThrown = true }
+  expect(errorThrown).toEqual(true)
+})
+
+
+test('to get one elements', async() => {
+  render(<QueryExample />)
+  // no textbox exist so it throws error
+  expect(screen.getByRole("list"))
+  expect(screen.queryByRole("list"))
+  expect(await screen.findByRole("list"))
+  // find try to find ele, if not return rejected promise
+  let errorThrown = false
+  try{
+    expect(await screen.findByRole("textbox"))
+  }
+  catch{
+    errorThrown = true
+  }
+    expect(errorThrown).toEqual(true)
+})
+
+test('to get multiple elements', async() => {
+  render(<QueryExample />)
+  // no textbox exist so it throws error
+  expect(() => {screen.getByRole("listitem")}).toThrow()
+  expect(() => {screen.queryByRole("listitem")}).toThrow()
+  // find try to find ele, if not return rejected promise
+  let errorThrown = false
+  try{
+    expect(await screen.findByRole("listitem"))
+  }
+  catch{
+    errorThrown = true
+  }
+    expect(errorThrown).toEqual(true)
+})
+
+test('to get zero elements', async () => {
+  render(<QueryExample />)
+  // no textbox exist so it throws error
+  /**
+   * screen.getAllByRole("textbox") is a query to find all elements with the
+   * role of "textbox" in the rendered component.
+
+   * () => { screen.getAllByRole("textbox") } wraps this query inside an arrow 
+   * function, turning it into a function call.
+   * .toThrow() checks that this function call results in an error being
+   * thrown. */
+
+  expect(() => { screen.getAllByRole("textbox") }).toThrow()
+  expect(screen.queryAllByRole("textbox")).toEqual([])
+
+  // find try to find ele, if not return rejected promise
+  let errorThrown = false
+  try {
+    expect(await screen.findAllByRole("textbox"))
+  }
+  catch {
+    errorThrown = true
+  }
+  expect(errorThrown).toEqual(true)
+})
+
+test('to get one elements', async() => {
+  render(<QueryExample />)
+  // no textbox exist so it throws error
+  expect(screen.getAllByRole("list")).toHaveLength(1)
+  expect(screen.queryAllByRole("list"))
+  expect(await screen.findAllByRole("list"))
+})
+
+test('to get multiple elements', async() => {
+  render(<QueryExample />)
+  // no textbox exist so it throws error
+  expect(screen.getAllByRole("listitem")).toHaveLength(4)
+  expect(screen.queryAllByRole("listitem"))
+  expect(await screen.findAllByRole("listitem"))
+})
