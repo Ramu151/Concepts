@@ -12,14 +12,19 @@ const App = () =>  {
     console.log(e?.target?.value);
     setTitle(e?.target?.value)
   }
-  const baseURL = 'https://silver-space-capybara-9jr9x4xpprqcv4g-4000.app.github.dev/posts'
-  const handleSubmit = async() => {
-    event.preventDefault()
+
+  const baseURL = 'http://localhost:3002/posts'
+  const handleSubmit = async(e) => {
+    e.preventDefault()
     axios.post(baseURL, { title }).then((response) => {
       console.log(response.data)
       setPostData(response.data);
+    }).catch((err) => {
+      console.log("err : ", err)
+      console.error('Error making POST request:', err.message);
     });
   }
+
   return (
     <div className="App">
       <header className="App-header">
